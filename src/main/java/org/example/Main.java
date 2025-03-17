@@ -11,6 +11,7 @@ public class Main {
         ArrayList<WeatherData> weatherData = new ArrayList<WeatherData>();
         storeData(file, weatherData);
         printAverageTemp(01, weatherData);
+        findMinTempDays(5.5, weatherData);
     }
 
     public static void printData(ArrayList<WeatherData> weatherdata) {
@@ -36,7 +37,13 @@ public class Main {
     }
 
     //TODO: Created a method to find days that meet the minimum temperature for a given set of data
-    public static void findMinTempDays(double weatherMin, ArrayList<WeatherData> weatherdata) {}
+    public static void findMinTempDays(double weatherMin, ArrayList<WeatherData> weatherdata) {
+        List<WeatherData> filteredData;
+        filteredData = weatherdata.stream()
+                .filter(data -> data.temperature() >= weatherMin)
+                .toList();
+        System.out.println("Days with minimum temperature of " + weatherMin + " or higher: "+ filteredData.size());
+    }
 
     //TODO: Create a method to find and print the number of rainy days in a given set of data
     public static void findNumRainyDays(ArrayList<WeatherData> weatherdata){}
