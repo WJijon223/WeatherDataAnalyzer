@@ -5,6 +5,11 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A program to read weather data from a file and perform various calculations on it.
+ * @author William Jijon
+ * @version 1.0
+ */
 public class Main {
     public static void main(String[] args) {
         String file = "src/main/resources/data/weatherdata.csv";
@@ -15,12 +20,21 @@ public class Main {
         findNumRainyDays(weatherData);
     }
 
+    /**
+     * Prints the weather data to the console.
+     * @param weatherdata weather data to be printed
+     */
     public static void printData(ArrayList<WeatherData> weatherdata) {
         for (WeatherData data : weatherdata) {
             System.out.println(data);
         }
     }
 
+/**
+     * Prints the average temperature for a given month.
+     * @param month the month number (1-12)
+     * @param weatherdata weather data to be used for calculation
+     */
     public static void printAverageTemp(int month, ArrayList<WeatherData> weatherdata) {
         if (month < 1 || month > 12) {
             System.out.println("Invalid month number. Please enter a number between 1 and 12.");
@@ -37,6 +51,11 @@ public class Main {
         System.out.printf("Average temperature for month " + month + ": %.2f\n", averageTemp);
     }
 
+    /**
+     * Finds the number of days with a minimum temperature above a given value(inclusive).
+     * @param weatherMin the minimum temperature to filter by
+     * @param weatherdata weather data to be used for calculation
+     */
     public static void findMinTempDays(double weatherMin, ArrayList<WeatherData> weatherdata) {
         List<WeatherData> filteredData;
         filteredData = weatherdata.stream()
@@ -45,6 +64,10 @@ public class Main {
         System.out.println("Days with minimum temperature of " + weatherMin + " or higher: "+ filteredData.size());
     }
 
+    /**
+     * Finds the number of rainy days in data set.
+     * @param weatherdata weather data to be used for calculation
+     */
     public static void findNumRainyDays(ArrayList<WeatherData> weatherdata){
         List<WeatherData> filteredData;
         filteredData = weatherdata.stream()
@@ -53,6 +76,11 @@ public class Main {
         System.out.println("Number of rainy days: " + filteredData.size());
     }
 
+    /**
+     * Reads the weather data from a file and stores it in an ArrayList.
+     * @param filePath the path to the file to be read
+     * @param weatherdata the ArrayList to store the data in
+     */
     public static void storeData(String filePath, ArrayList<WeatherData> weatherdata) {
         BufferedReader reader = null;
         String line = "";
@@ -73,6 +101,14 @@ public class Main {
             }
         }
     }
+
 }
 
+/**
+ * A record to store the weather data.
+ * @param date the date of the weather data
+ * @param temperature the temperature of the weather data
+ * @param Humidity the humidity of the weather data
+ * @param precipitation the precipitation of the weather data
+ */
 record WeatherData(String date, double temperature, double Humidity, double precipitation) {}
