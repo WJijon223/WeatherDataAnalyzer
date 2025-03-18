@@ -14,10 +14,16 @@ public class Main {
     public static void main(String[] args) {
         String file = "src/main/resources/data/weatherdata.csv";
         ArrayList<WeatherData> weatherData = new ArrayList<WeatherData>();
+
+        //testing all the methods
         storeData(file, weatherData);
+        printData(weatherData);
+        System.out.println();
         printAverageTemp(01, weatherData);
         findMinTempDays(5.5, weatherData);
         findNumRainyDays(weatherData);
+        System.out.println();
+        weatherData.stream().forEach(data -> System.out.println(weatherType(data)));
     }
 
     /**
@@ -101,6 +107,23 @@ public class Main {
             }
         }
     }
+
+    /**
+     * Returns the weather type for a given weather data.
+     * @param weatherData the weather data to be used for calculation
+     * @return the weather type
+     */
+    public static String weatherType(WeatherData weatherData) {
+        double temp = weatherData.temperature();
+
+        return switch ((int) temp) {
+            default -> temp <= 0 ? "Freezing"
+                    : temp < 15 ? "Cold"
+                    : temp <= 30 ? "Warm"
+                    : "Hot";
+        };
+    }
+
 
 }
 
